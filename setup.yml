@@ -1,0 +1,38 @@
+---
+ - hosts: all
+   become: true
+   vars:
+     username: "punopaughey (NICOLAS)"
+   pre_tasks:
+   - name: update repository index (CentOS)
+     dnf: 
+       update_cache: yes
+     changed_when: false
+     when: ansible_distribution == "CentOS"
+
+   - name: update repository index (Ubuntu)
+     apt: 
+       update_cache: yes
+     changed_when: false
+     when: ansible_distribution == "Ubuntu"
+
+   - name: Set Custom MOTD
+     lineinfile:
+       path: /etc/motd
+       line: "Ansible Managed by {{ username }}"
+
+ - hosts: nodes
+   become: true
+   roles:
+     - nodes
+
+ - hosts: db
+   become: true
+   roles:
+     - db
+
+ - hosts: web
+   become: true
+   roles:
+     - web
+

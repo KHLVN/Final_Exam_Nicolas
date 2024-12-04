@@ -1,0 +1,67 @@
+---
+# Enterprise Tool (LampStack)
+  
+  # Ubuntu
+
+ - name: Install LampStack (Ubuntu)
+   apt:
+     name:
+       - apache2
+       - mysql-server
+       - libapache2-mod-php 
+       - php-mysql
+     state: present
+   when: ansible_distribution == "Ubuntu"
+
+  # CentOS
+
+ - name: Install LampStack (CentOS)
+   yum:
+     name:
+       - httpd
+       - mariadb-server
+       - php-mysql
+     state: present
+   when: ansible_distribution == "CentOS"
+
+
+# Monitoring Tool (Nagios)
+
+  # Ubuntu
+
+ - name: install Nagios Prerequisites (Ubuntu)
+   package:
+     name:
+       - libc6-dev
+       - libpng-dev
+       - libfreetype6-dev
+       - gcc
+       - libgd-dev
+     state: latest
+   when: ansible_distribution == "Ubuntu"
+
+ - name: Install Nagios Core (Ubuntu)
+   apt:
+     name: nagios3
+     state: latest
+   when: ansible_distribution == "Ubuntu"
+
+  # CentOS
+
+ - name: install Nagios Prerequisites (CentOS)
+   package:
+     name:
+       - epel-release
+       - libpng-devel
+       - gd-devel
+       - gcc
+       - freetype-devel
+       - glibc    
+     state: latest
+   when: ansible_distribution == "CentOS"   
+
+ - name: Install Nagios Core (CentOS)
+   package:
+     name: nagios
+     state: latest
+   when: ansible_distribution == "CentOS"

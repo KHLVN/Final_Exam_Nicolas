@@ -1,0 +1,9 @@
+[nodes]
+server1
+centos ansible_user=khlvn
+
+[web]
+centos ansible_user=khlvn
+
+[db]
+server1
